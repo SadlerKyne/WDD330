@@ -14,7 +14,7 @@ export default class Alert {
         this.displayAlerts(alerts);
       }
     } catch (error) {
-      console.error("Error loading alerts:", error);
+      //console.error("Error loading alerts:", error);
     }
   }
 
@@ -22,7 +22,7 @@ export default class Alert {
     const section = document.createElement("section");
     section.classList.add("alert-list");
 
-    alerts.forEach(alert => {
+    alerts.forEach((alert) => {
       const p = document.createElement("p");
       p.textContent = alert.message;
       p.style.background = alert.background;
@@ -37,8 +37,9 @@ export default class Alert {
     const main = document.querySelector("main");
     if (main) {
       main.prepend(section);
-    } else {
-      console.warn("Main element not found.");
-    }
+    } 
+    //else {
+      //console.warn("Main element not found.");
+    //}
   }
 }
