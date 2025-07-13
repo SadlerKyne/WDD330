@@ -2,6 +2,17 @@ import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
+
+  if (cartItems && cartItems.length > 0) {
+    const cartFooter = document.querySelector(".cart-footer");
+    cartFooter.classList.remove("hide");
+
+    const total = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
+
+    const cartTotal = document.querySelector(".cart-total");
+    cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+  }
+
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
