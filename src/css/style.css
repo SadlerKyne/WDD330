@@ -197,6 +197,35 @@ button {
 
 /* End product list card */
 
+/* Discount styles using BEM methodology */
+.price {
+  margin: 1rem 0;
+}
+
+.price__original {
+  text-decoration: line-through;
+  color: #666;
+  font-size: 0.9em;
+  margin: 0;
+}
+
+.price__final {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #e74c3c;
+  margin: 0;
+}
+
+.price__discount {
+  background: #e74c3c;
+  color: white;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.8em;
+  margin-left: 0.5rem;
+  display: inline-block;
+}
+
 .product-detail {
   padding: 1em;
   max-width: 500px;
