@@ -37,9 +37,9 @@ export default class Alert {
     const main = document.querySelector("main");
     if (main) {
       main.prepend(section);
-    } 
+    }
     //else {
-      //console.warn("Main element not found.");
+    //console.warn("Main element not found.");
     //}
   }
 }
