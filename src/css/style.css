@@ -294,3 +294,25 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+.categories {
+  padding: 2rem;
+  text-align: center;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.category img {
+  width: 80px;
+  height: auto;
+}
+
+.category h3 {
+  margin-top: 0.5rem;
+}
+
