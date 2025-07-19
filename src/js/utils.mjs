@@ -57,10 +57,10 @@ export function getCartCount() {
 
 // Function to load header and footer dynamically
 export async function loadHeaderFooter() {
-  const headerPath = "../public/partials/header.html";
-  const footerPath = "../public/partials/footer.html";
+  // REMOVED ../PUBLIC FROM THE PATH AS IT WAS TELLING THE BUILD TO GO UP 1 LEVEL TOO FAR
+  const headerPath = "/partials/header.html";
+  const footerPath = "/partials/footer.html";
 
-  // Use absolute paths for loading templates since the js files are in different directories
   const headerTemplate = await loadTemplate(headerPath);
   const footerTemplate = await loadTemplate(footerPath);
 
