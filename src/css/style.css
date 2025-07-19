@@ -294,3 +294,14 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+.breadcrumbs {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  background-color: #f3f3f3;
+  color: #333;
+}
+
+.breadcrumbs span {
+  margin-right: 8px;
+}
