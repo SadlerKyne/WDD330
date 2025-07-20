@@ -5,32 +5,24 @@ loadHeaderFooter(); // Call this function to dynamically load the header and foo
 // Changed function name for consistency with previous guidance
 function getCartContents() {
   const cartItems = getLocalStorage("so-cart");
+  const productListElement = document.querySelector(".product-list");
+  const cartFooterElement = document.querySelector(".cart-footer");
 
-  // Check if there are items in the cart to display the footer and calculate total
   if (cartItems && cartItems.length > 0) {
-    const cartFooter = document.querySelector(".cart-footer");
-    // Ensure the cart footer is visible if there are items
-    cartFooter.classList.remove("hide");
+    // If there are items, render them
+    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+    productListElement.innerHTML = htmlItems.join("");
 
-    // Calculate the total price of all items in the cart
+    // Show the footer and calculate the total
+    cartFooterElement.classList.remove("hide");
     const total = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
-
-    // Select the correct element for displaying the total
-    // Corrected selector from '.cart-total' to '.cart-footer__total'
     const cartTotalElement = document.querySelector(".cart-footer__total");
-    // Update the text content with the calculated total, formatted to two decimal places
     cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
   } else {
-    // If cart is empty, display a message and hide the footer
-    document.querySelector(".product-list").innerHTML =
-      "<p>Your cart is empty.</p>";
-    document.querySelector(".cart-footer").classList.add("hide");
+    // If the cart is empty, show a message and hide the footer
+    productListElement.innerHTML = "<p>Your cart is empty.</p>";
+    cartFooterElement.classList.add("hide");
   }
-
-  // Generate HTML for each item in the cart using the template
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  // Insert the generated HTML into the product list
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 
 // Template function to generate HTML markup for a single cart item
