@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sleep Outside | Order Placed!</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+
+  <body>
+    <header class="divider" id="main-header"></header>
+
+    <main class="divider">
+      <section class="products">
+        <h2>Order Successfully Placed!</h2>
+        <p>Thank you for your purchase. Your order has been received and will be processed shortly.</p>
+        <p><a href="/">Continue Shopping</a></p>
+      </section>
+    </main>
+
+    <footer id="main-footer"></footer>
+    <script src="../js/utils.mjs" type="module"></script>
+    <script>
+      // Load header and footer on success page
+      import { loadHeaderFooter } from "../js/utils.mjs";
+      loadHeaderFooter();
+    </script>
+  </body>
+</html>

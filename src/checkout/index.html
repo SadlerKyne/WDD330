@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Checkout</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
   </head>
 
   <body>
@@ -13,9 +13,86 @@
     <main class="divider">
       <section class="products">
         <h2>Review & Place your Order</h2>
+        <form class="checkout-form" name="checkout" id="checkout-form">
+          <fieldset>
+            <legend>Customer Information</legend>
+            <div class="form-item">
+              <label for="fname">First Name:</label>
+              <input type="text" id="fname" name="fname" required />
+            </div>
+            <div class="form-item">
+              <label for="lname">Last Name:</label>
+              <input type="text" id="lname" name="lname" required />
+            </div>
+            <div class="form-item">
+              <label for="street">Street Address:</label>
+              <input type="text" id="street" name="street" required />
+            </div>
+            <div class="form-item">
+              <label for="city">City:</label>
+              <input type="text" id="city" name="city" required />
+            </div>
+            <div class="form-item">
+              <label for="state">State:</label>
+              <input type="text" id="state" name="state" required />
+            </div>
+            <div class="form-item">
+              <label for="zip">Zip Code:</label>
+              <input type="text" id="zip" name="zip" required />
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Payment Information</legend>
+            <div class="form-item">
+              <label for="cardNumber">Credit Card Number:</label>
+              <input
+                type="text"
+                id="cardNumber"
+                name="cardNumber"
+                pattern="[0-9]{16}"
+                title="Credit card number must be 16 digits"
+                required
+              />
+            </div>
+            <div class="form-item">
+              <label for="expiration">Expiration Date (MM/YY):</label>
+              <input
+                type="text"
+                id="expiration"
+                name="expiration"
+                pattern="(0[1-9]|1[0-2])\/?([0-9]{2})"
+                title="Expiration date must be in MM/YY format"
+                required
+              />
+            </div>
+            <div class="form-item">
+              <label for="code">Security Code (CVV):</label>
+              <input
+                type="text"
+                id="code"
+                name="code"
+                pattern="[0-9]{3,4}"
+                title="Security code must be 3 or 4 digits"
+                required
+              />
+            </div>
+          </fieldset>
+
+          <div class="order-summary">
+            <h3>Order Summary</h3>
+            <p>Subtotal: $<span id="subtotal">0.00</span></p>
+            <p>Tax (6%): $<span id="tax">0.00</span></p>
+            <p>Shipping: $<span id="shipping">0.00</span></p>
+            <p class="order-total">Total: $<span id="orderTotal">0.00</span></p>
+          </div>
+
+          <button type="submit" id="checkoutSubmit">Place Order</button>
+        </form>
       </section>
     </main>
 
     <footer id="main-footer"></footer>
+    <script src="../js/checkout.js" type="module"></script>
   </body>
 </html>
