@@ -447,3 +447,52 @@ input:focus:invalid {
 .checkout-button:hover {
   background-color: var(--secondary-color); 
 }
+
+.newsletter {
+  background-color: #f1f1f1;
+  padding: 2rem;
+  margin: 2rem auto;
+  text-align: center;
+  border-radius: 8px;
+  max-width: 600px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.newsletter h2 {
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.newsletter p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+#newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+#newsletter-form input[type="email"] {
+  padding: 0.75rem;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#newsletter-form button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#newsletter-form button:hover {
+  background-color: #005fa3;
+}
