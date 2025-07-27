@@ -16,8 +16,24 @@ export default class ProductDetails {
   }
 
   addProductToCart() {
+      // Get cart from local storage, or initialize an empty array
     const cartItems = getLocalStorage("so-cart") || [];
-    cartItems.push(this.product);
+    
+    // Check if the product is already in the cart
+    const existingProductIndex = cartItems.findIndex(
+      (item) => item.Id === this.product.Id
+    );
+
+    if (existingProductIndex > -1) {
+      // If it is, just increase the quantity by 1
+      cartItems[existingProductIndex].quantity += 1;
+    } else {
+      // If it's not, set its quantity to 1 and add it to the cart
+      this.product.quantity = 1;
+      cartItems.push(this.product);
+    }
+    
+    // Save the updated cart back to local storage
     setLocalStorage("so-cart", cartItems);
   }
 
