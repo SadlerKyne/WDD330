@@ -496,3 +496,17 @@ input:focus:invalid {
 #newsletter-form button:hover {
   background-color: #005fa3;
 }
+
+/* Discount */
+.product-card__price--original {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.9em;
+  margin: 0;
+}
+
+.product-card__discount {
+  color: #e74c3c;
+  font-weight: bold;
+  margin: 0;
+}

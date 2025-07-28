@@ -1,13 +1,29 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
+  // Discount Calculator (if applicable)
+  const originalPrice = product.SuggestedRetailPrice;
+  const finalPrice = product.FinalPrice;
+  let discountHTML = '';
+
+  if (originalPrice > finalPrice) {
+    const discountPercentage = Math.round(
+      ((originalPrice - finalPrice) / originalPrice) * 100,
+    );
+    discountHTML = `
+      <p class="product-card__price--original">$${originalPrice.toFixed(2)}</p>
+      <p class="product-card__discount">(${discountPercentage}% OFF)</p>
+    `;
+  }
+
   return `
     <li class="product-card">
       <a href="/product_pages/?product=${product.Id}">
-        <img src="${product.Images.PrimaryMedium}" alt="${product.Name}">
-        <h3>${product.Brand.Name}</h3>
-        <p>${product.NameWithoutBrand}</p>
-        <p class="product-card__price">$${product.FinalPrice}</p>
+        <img src="${product.Images.PrimaryMedium}" alt="${product.NameWithoutBrand}">
+        <h3 class="card__brand">${product.Brand.Name}</h3>
+        <h2 class="card__name">${product.NameWithoutBrand}</h2>
+        ${discountHTML} 
+        <p class="product-card__price">$${finalPrice.toFixed(2)}</p>
       </a>
     </li>
     `;
