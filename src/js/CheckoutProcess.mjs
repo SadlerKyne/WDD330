@@ -1,7 +1,6 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
-const baseURL = import.meta.env.VITE_SERVER_URL;
 const services = new ExternalServices();
 
 export default class CheckoutProcess {
@@ -23,9 +22,10 @@ export default class CheckoutProcess {
   }
 
   calculateItemSummary() {
+    // Fix: Calculate total including quantity
     this.itemTotal = this.list.reduce(
-      (sum, item) => sum + item.FinalPrice,
-      0
+      (sum, item) => sum + item.FinalPrice * (item.quantity || 1),
+      0,
     );
   }
 
@@ -34,7 +34,12 @@ export default class CheckoutProcess {
     this.tax = this.itemTotal * 0.06;
 
     // Shipping: $10 for the first item plus $2 for each additional item
-    this.shipping = 10 + (this.list.length - 1) * 2;
+    // Calculate total quantity for shipping
+    const totalQuantity = this.list.reduce(
+      (sum, item) => sum + (item.quantity || 1),
+      0,
+    );
+    this.shipping = 10 + (totalQuantity - 1) * 2;
     if (this.list.length === 0) {
       this.shipping = 0; // No shipping if no items
     }
@@ -47,7 +52,8 @@ export default class CheckoutProcess {
     document.getElementById("subtotal").textContent = this.itemTotal.toFixed(2);
     document.getElementById("tax").textContent = this.tax.toFixed(2);
     document.getElementById("shipping").textContent = this.shipping.toFixed(2);
-    document.getElementById("orderTotal").textContent = this.orderTotal.toFixed(2);
+    document.getElementById("orderTotal").textContent =
+      this.orderTotal.toFixed(2);
   }
 
   async checkout(form) {
@@ -70,23 +76,23 @@ export default class CheckoutProcess {
     };
 
     try {
-      const res = await services.checkout(order);
-      console.log(res); // Log the success response
+      await services.checkout(order);
       setLocalStorage("so-cart", []); // Clear the cart after successful order
       window.location.href = "../checkout/success.html"; // Redirect to success page
     } catch (err) {
-      console.error(err); // Log the error for debugging
       alert(`Order Failed: ${err.message}`); // Simple alert for failure
     }
   }
 
-  // Helper function to transform cart items
+  // Helper function to transform cart items - Fixed to use actual quantity
   packageItems(items) {
     return items.map((item) => ({
       id: item.Id,
-      name: item.Name,
+      name:
+        item.Name ||
+        `${item.Brand?.Name || ""} ${item.NameWithoutBrand || ""}`.trim(),
       price: item.FinalPrice,
-      quantity: 1, // Assuming quantity is 1 per item 
+      quantity: item.quantity || 1, // Use actual quantity from cart
     }));
   }
 }
