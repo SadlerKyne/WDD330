@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -11,6 +11,7 @@ export default class CheckoutProcess {
     this.shipping = 0;
     this.tax = 0;
     this.orderTotal = 0;
+    this.isProcessing = false; // Flag to prevent multiple submissions
   }
 
   init() {
@@ -57,6 +58,21 @@ export default class CheckoutProcess {
   }
 
   async checkout(form) {
+    // Prevent multiple submissions
+    if (this.isProcessing) {
+      return;
+    }
+    this.isProcessing = true;
+
+    // Clear any existing alerts
+    this.clearAlerts();
+
+    // Disable submit button and show loading state
+    const submitButton = form.querySelector("button[type='submit']");
+    const originalText = submitButton.textContent;
+    submitButton.disabled = true;
+    submitButton.textContent = "Processing...";
+
     const formData = new FormData(form);
     const order = {
       orderDate: new Date().toISOString(),
@@ -80,8 +96,30 @@ export default class CheckoutProcess {
       setLocalStorage("so-cart", []); // Clear the cart after successful order
       window.location.href = "../checkout/success.html"; // Redirect to success page
     } catch (err) {
-      alert(`Order Failed: ${err.message}`); // Simple alert for failure
+      // Handle different error formats and show individual error messages
+      if (err.message && typeof err.message === "object") {
+        // Parse individual validation errors
+        const errors = err.message;
+        Object.entries(errors).forEach(([, message]) => {
+          alertMessage(message, false); // Don't scroll for multiple errors
+        });
+      } else if (err.message && typeof err.message === "string") {
+        alertMessage(err.message);
+      } else {
+        alertMessage("Order Failed: Unknown error occurred");
+      }
+    } finally {
+      // Reset processing flag and restore button
+      this.isProcessing = false;
+      submitButton.disabled = false;
+      submitButton.textContent = originalText;
     }
+  }
+
+  // Helper method to clear existing alerts
+  clearAlerts() {
+    const existingAlerts = document.querySelectorAll(".alert");
+    existingAlerts.forEach((alert) => alert.remove());
   }
 
   // Helper function to transform cart items - Fixed to use actual quantity

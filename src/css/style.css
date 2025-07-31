@@ -90,7 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -430,6 +430,7 @@ input:focus:invalid {
   margin-top: 1.5rem;
   padding: 0.8em 2.5em;
 }
+
 .checkout-button {
   display: block;
   width: fit-content;
@@ -455,7 +456,7 @@ input:focus:invalid {
   text-align: center;
   border-radius: 8px;
   max-width: 600px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .newsletter h2 {
@@ -567,4 +568,41 @@ input:focus:invalid {
 .comment p {
   margin: 0.5rem 0 0 0;
   padding: 0;
+}
+
+/* Alert Message Styles */
+.alert {
+  background-color: #f4a460;
+  /* Sandy brown/orange color */
+  color: #333;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alert-message {
+  flex: 1;
+  font-weight: 500;
+}
+
+.alert-close {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  /* Red color for X button */
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  margin-left: 1rem;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.alert-close:hover {
+  background-color: rgba(211, 47, 47, 0.1);
 }
