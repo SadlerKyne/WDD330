@@ -1,0 +1,25 @@
+[
+    {
+      "Id": "985RF",
+      "NameWithoutBrand": "Paradiso Double Hammock",
+      "Name": "Byer of Maine Paradiso Double Hammock",
+      "Image": "/images/hammock-1.png",
+      "SuggestedRetailPrice": 89.95,
+      "FinalPrice": 69.99,
+      "Brand": { "Name": "Byer of Maine" },
+      "Colors": [{ "ColorName": "Rainbow" }],
+      "DescriptionHtmlSimple": "Made of soft, strong, and breathable 85% cotton/15% polyester blend, this Brazilian-style hammock is perfect for two."
+    },
+    {
+      "Id": "985PR",
+      "NameWithoutBrand": "Traveller Lite Hammock",
+      "Name": "ENO Traveller Lite Hammock",
+      "Image": "/images/hammock-2.png",
+      "SuggestedRetailPrice": 69.95,
+      "FinalPrice": 54.99,
+      "Brand": { "Name": "ENO" },
+      "Colors": [{ "ColorName": "Blue/Green" }],
+      "DescriptionHtmlSimple": "The Traveller Lite is ENO's lightest hammock, perfect for backpacking and travel. Made from 70D ripstop nylon, it's both durable and comfortable."
+    }
+  ]
+  

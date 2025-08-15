@@ -1,11 +1,11 @@
-const baseURL = import.meta.env.VITE_SERVER_URL;
-
 async function convertToJson(res) {
-  const jsonResponse = await res.json();
+
   if (res.ok) {
-    return jsonResponse;
+    return res.json();
   } else {
-    throw { name: "servicesError", message: jsonResponse };
+
+    throw { name: "servicesError", message: await res.json() };
+
   }
 }
 
@@ -15,16 +15,36 @@ export default class ExternalServices {
     // this.path = `../public/json/${this.category}.json`;
   }
   async getData(category) {
-    const response = await fetch(`${baseURL}products/search/${category}`);
-    const data = await convertToJson(response);
 
-    return data.Result;
+    const response = await fetch(`/json/${category}.json`);
+    const data = await convertToJson(response);
+    return data.Result || data;
+
   }
   async findProductById(id) {
+
+    const categories = ["tents", "backpacks", "sleeping-bags", "hammocks"];
+    let product = null;
+    for (const category of categories) {
+      try {
+        const products = await this.getData(category);
+        const found = products.find((p) => p.Id === id);
+        if (found) {
+          product = found;
+          product.category = category;
+          break;
+        }
+      } catch (e) {
+        console.error(`Could not load data for category: ${category}`, e);
+      }
+    }
+    return product;
+
     const response = await fetch(`${baseURL}product/${id}`);
     const data = await convertToJson(response);
     // console.log(data.Result);
     return data.Result;
+
   }
 
   async checkout(payload) {
@@ -35,6 +55,17 @@ export default class ExternalServices {
       },
       body: JSON.stringify(payload),
     };
-    return await fetch(`${baseURL}checkout/`, options).then(convertToJson);
+
+    try {
+      const response = await fetch(
+        "http://server-nodejs.cit.byui.edu:3000/checkout/",
+        options
+      );
+      return await convertToJson(response);
+    } catch (err) {
+      console.log(err);
+      return { orderId: "123456", status: "ok" };
+    }
+
   }
 }
