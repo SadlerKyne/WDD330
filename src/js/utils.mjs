@@ -1,19 +1,15 @@
-// wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
-// or a more concise version if you are into that sort of thing:
-// export const qs = (selector, parent = document) => parent.querySelector(selector);
 
-// retrieve data from localstorage
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
-// save data to local storage
+
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
-// set a listener for both touchend and click
+
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
     event.preventDefault();
@@ -29,35 +25,35 @@ export function getParam(param) {
   return product;
 }
 
-// Function to fetch HTML content from a given path
 export async function loadTemplate(path) {
   const response = await fetch(path);
+
   if (!response.ok) {
     throw new Error(`HTTP error! Status: ${response.status}`);
   }
+
   const html = await response.text();
   return html;
 }
 
-// Function to render content into a parent element (for single templates like header/footer)
 export function renderWithTemplate(template, parentElement) {
   parentElement.innerHTML = template;
 }
 
-// Function to get the number of items in the cart and display it
 export function getCartCount() {
-  const cartItems = getLocalStorage("so-cart"); // Assume "so-cart" is the key for cart items
+  const cartItems = getLocalStorage("so-cart") || [];
   const countElement = document.getElementById("cart-count");
 
   if (countElement) {
-    const count = cartItems ? cartItems.length : 0;
-    countElement.textContent = count;
+    const totalQuantity = cartItems.reduce(
+      (sum, item) => sum + (item.quantity || 0),
+      0
+    );
+    countElement.textContent = totalQuantity;
   }
 }
 
-// Function to load header and footer dynamically
 export async function loadHeaderFooter() {
-  // REMOVED ../PUBLIC FROM THE PATH AS IT WAS TELLING THE BUILD TO GO UP 1 LEVEL TOO FAR
   const headerPath = "/partials/header.html";
   const footerPath = "/partials/footer.html";
 
@@ -70,15 +66,49 @@ export async function loadHeaderFooter() {
   if (headerElement && footerElement) {
     renderWithTemplate(headerTemplate, headerElement);
     renderWithTemplate(footerTemplate, footerElement);
-    getCartCount(); // Update cart count after header is loaded
+    getCartCount();
   }
 }
 
-// This function remains for rendering lists of items like product cards
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false){
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false
+) {
   const htmlStrings = list.map(templateFn);
+
   if (clear) {
     parentElement.innerHTML = "";
   }
+
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
+
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  alert.innerHTML = `
+    <span class="alert-message">${message}</span>
+    <button type="button" class="alert-close">X</button>
+  `;
+
+  const main = document.querySelector("main");
+
+  alert.addEventListener("click", function (e) {
+    if (
+      e.target.tagName === "BUTTON" &&
+      e.target.classList.contains("alert-close")
+    ) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.remove();
+    }
+  });
+
+  main.prepend(alert);
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
 }

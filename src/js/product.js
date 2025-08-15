@@ -1,13 +1,12 @@
 import { getParam, loadHeaderFooter } from "./utils.mjs";
-import ExternalServices from "./ExternalServices.mjs"; // Renamed import
+import ExternalServices from "./ExternalServices.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
 loadHeaderFooter();
 
 const productId = getParam("product");
-// 'tents' is a placeholder here.
-// This will be dynamic 
-const dataSource = new ExternalServices("tents");
+const category = getParam("category");
+const dataSource = new ExternalServices();
 
-const product = new ProductDetails(productId, dataSource);
-product.init();
+const productDetails = new ProductDetails(productId, dataSource);
+productDetails.init(category);
