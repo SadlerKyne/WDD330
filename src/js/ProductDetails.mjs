@@ -7,17 +7,21 @@ export default class ProductDetails {
     this.dataSource = dataSource;
   }
 
+
   async init(category) {
     this.product = await this.dataSource.findProductById(this.productId);
     this.renderProductDetails(category || this.product.category);
     this.addCommentsSection();
+
     document
       .getElementById("addToCart")
       .addEventListener("click", this.addProductToCart.bind(this));
   }
 
+
   addCommentsSection() {
     const productSection = document.querySelector(".product-detail");
+
 
     const commentsHTML = `
       <div class="simple-comments">
@@ -26,7 +30,9 @@ export default class ProductDetails {
         <div class="add-comment">
           <input type="text" id="user-name" placeholder="Your name" />
           <textarea id="comment-text" placeholder="Write your comment..."></textarea>
+
           <button id="addCommentBtn">Add Comment</button>
+
         </div>
 
         <div id="comments-list"></div>
@@ -34,9 +40,11 @@ export default class ProductDetails {
     `;
 
     productSection.insertAdjacentHTML("beforeend", commentsHTML);
+
     document
       .getElementById("addCommentBtn")
       .addEventListener("click", this.addComment.bind(this));
+
     this.displayComments();
   }
 
@@ -49,16 +57,20 @@ export default class ProductDetails {
       return;
     }
 
+
     const comments = getLocalStorage(`comments-${this.productId}`) || [];
+
     comments.push({
       name: name,
       text: text,
       date: new Date().toLocaleDateString(),
     });
+
     setLocalStorage(`comments-${this.productId}`, comments);
 
     document.getElementById("user-name").value = "";
     document.getElementById("comment-text").value = "";
+
 
     this.displayComments();
   }
@@ -72,6 +84,8 @@ export default class ProductDetails {
       return;
     }
 
+
+
     commentsList.innerHTML = comments
       .map(
         (comment) => `
@@ -79,15 +93,19 @@ export default class ProductDetails {
           <strong>${comment.name}</strong> - ${comment.date}
           <p>${comment.text}</p>
         </div>
+
       `
+
       )
       .join("");
   }
 
   addProductToCart() {
+
     const cartItems = getLocalStorage("so-cart") || [];
+
     const existingProductIndex = cartItems.findIndex(
-      (item) => item.Id === this.product.Id
+      (item) => item.Id === this.product.Id,
     );
 
     if (existingProductIndex > -1) {
@@ -96,6 +114,7 @@ export default class ProductDetails {
       this.product.quantity = 1;
       cartItems.push(this.product);
     }
+
     setLocalStorage("so-cart", cartItems);
     getCartCount();
   }
@@ -118,6 +137,7 @@ function productDetailsTemplate(product) {
 
   const productImage = document.getElementById("productImage");
 
+
   let imgSrc = product.Images ? product.Images.PrimaryLarge : product.Image;
 
   if (imgSrc && imgSrc.startsWith("../")) {
@@ -125,12 +145,15 @@ function productDetailsTemplate(product) {
   }
 
   productImage.src = imgSrc;
+
   productImage.alt = product.NameWithoutBrand;
   product.Image = imgSrc;
+
 
   if (!product.Name) {
     product.Name = `${product.Brand.Name} ${product.NameWithoutBrand}`;
   }
+
 
   const originalPrice = product.SuggestedRetailPrice || product.FinalPrice;
   const finalPrice = product.FinalPrice;
@@ -160,3 +183,5 @@ function productDetailsTemplate(product) {
     product.DescriptionHtmlSimple;
   document.getElementById("addToCart").dataset.id = product.Id;
 }
+
+

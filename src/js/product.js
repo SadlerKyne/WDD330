@@ -5,6 +5,7 @@ import ProductDetails from "./ProductDetails.mjs";
 loadHeaderFooter();
 
 const productId = getParam("product");
+
 const category = getParam("category");
 const dataSource = new ExternalServices();
 

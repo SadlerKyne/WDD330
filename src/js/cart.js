@@ -2,6 +2,7 @@ import {
   setLocalStorage,
   getLocalStorage,
   loadHeaderFooter,
+
 } from "./utils.mjs";
 
 loadHeaderFooter();
@@ -17,6 +18,8 @@ function getCartContents() {
 
     cartFooterElement.classList.remove("hide");
 
+
+
     const total = cartItems.reduce((acc, item) => {
       const price = item.FinalPrice || 0;
       const quantity = item.quantity || 1;
@@ -31,6 +34,7 @@ function getCartContents() {
 }
 
 function cartItemTemplate(item) {
+
   const itemId = item.Id || "";
   const itemImage =
     item.Image ||
@@ -46,6 +50,7 @@ function cartItemTemplate(item) {
       <img src="${itemImage}" alt="${itemName}"/>
     </a>
     <a href="/product_pages/index.html?product=${itemId}">
+
       <h2 class="card__name">${itemName}</h2>
     </a>
     <p class="cart-card__color">${itemColor}</p>
@@ -75,7 +80,9 @@ function removeItem(itemId) {
   cartItems = cartItems.filter((item) => item.Id !== itemId);
   setLocalStorage("so-cart", cartItems);
   getCartContents();
+
   loadHeaderFooter();
+
 }
 
 document.querySelector(".product-list").addEventListener("click", (e) => {

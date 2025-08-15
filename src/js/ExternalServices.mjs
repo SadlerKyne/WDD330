@@ -1,21 +1,28 @@
 async function convertToJson(res) {
+
   if (res.ok) {
     return res.json();
   } else {
+
     throw { name: "servicesError", message: await res.json() };
+
   }
 }
 
 export default class ExternalServices {
-  constructor() {}
-
+  constructor() {
+    // this.category = category;
+    // this.path = `../public/json/${this.category}.json`;
+  }
   async getData(category) {
+
     const response = await fetch(`/json/${category}.json`);
     const data = await convertToJson(response);
     return data.Result || data;
-  }
 
+  }
   async findProductById(id) {
+
     const categories = ["tents", "backpacks", "sleeping-bags", "hammocks"];
     let product = null;
     for (const category of categories) {
@@ -32,6 +39,12 @@ export default class ExternalServices {
       }
     }
     return product;
+
+    const response = await fetch(`${baseURL}product/${id}`);
+    const data = await convertToJson(response);
+    // console.log(data.Result);
+    return data.Result;
+
   }
 
   async checkout(payload) {
@@ -42,6 +55,7 @@ export default class ExternalServices {
       },
       body: JSON.stringify(payload),
     };
+
     try {
       const response = await fetch(
         "http://server-nodejs.cit.byui.edu:3000/checkout/",
@@ -52,5 +66,6 @@ export default class ExternalServices {
       console.log(err);
       return { orderId: "123456", status: "ok" };
     }
+
   }
 }

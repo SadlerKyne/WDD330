@@ -2,13 +2,16 @@ export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
 
+
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
 
+
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
+
 
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
@@ -70,12 +73,15 @@ export async function loadHeaderFooter() {
   }
 }
 
+
 export function renderListWithTemplate(
   templateFn,
   parentElement,
   list,
   position = "afterbegin",
+
   clear = false
+
 ) {
   const htmlStrings = list.map(templateFn);
 
@@ -87,28 +93,36 @@ export function renderListWithTemplate(
 }
 
 export function alertMessage(message, scroll = true) {
+
   const alert = document.createElement("div");
   alert.classList.add("alert");
+
   alert.innerHTML = `
     <span class="alert-message">${message}</span>
     <button type="button" class="alert-close">X</button>
   `;
 
+
   const main = document.querySelector("main");
+
 
   alert.addEventListener("click", function (e) {
     if (
       e.target.tagName === "BUTTON" &&
       e.target.classList.contains("alert-close")
     ) {
+
       e.preventDefault();
       e.stopPropagation();
       this.remove();
+
     }
   });
 
   main.prepend(alert);
+
   if (scroll) {
     window.scrollTo(0, 0);
   }
 }
+

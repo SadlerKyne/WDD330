@@ -1,6 +1,7 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
+
   const originalPrice = product.SuggestedRetailPrice;
   const finalPrice = product.FinalPrice;
   let discountHTML = "";
@@ -8,12 +9,14 @@ function productCardTemplate(product) {
   if (originalPrice > finalPrice) {
     const discountPercentage = Math.round(
       ((originalPrice - finalPrice) / originalPrice) * 100
+
     );
     discountHTML = `
       <p class="product-card__price--original">$${originalPrice.toFixed(2)}</p>
       <p class="product-card__discount">(${discountPercentage}% OFF)</p>
     `;
   }
+
 
   const imageUrl = (
     product.Images ? product.Images.PrimaryMedium : product.Image
@@ -24,6 +27,7 @@ function productCardTemplate(product) {
     <li class="product-card">
       <a href="${productUrl}">
         <img src="${imageUrl}" alt="${product.NameWithoutBrand}">
+
         <h3 class="card__brand">${product.Brand.Name}</h3>
         <h2 class="card__name">${product.NameWithoutBrand}</h2>
         ${discountHTML} 

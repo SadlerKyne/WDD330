@@ -90,7 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -379,7 +379,7 @@ footer {
   padding: 0.75rem;
   border: 1px solid var(--light-grey);
   border-radius: 4px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   font-size: var(--font-base);
 }
 
@@ -430,22 +430,23 @@ input:focus:invalid {
   margin-top: 1.5rem;
   padding: 0.8em 2.5em;
 }
+
 .checkout-button {
-  display: block; 
-  width: fit-content; 
+  display: block;
+  width: fit-content;
   padding: 1em 2em;
-  background-color: var(--primary-color); 
+  background-color: var(--primary-color);
   color: white;
   text-align: center;
-  text-decoration: none; 
+  text-decoration: none;
   border-radius: 5px;
-  margin: 1.5rem auto; 
+  margin: 1.5rem auto;
   font-size: 1.1em;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
 
 .checkout-button:hover {
-  background-color: var(--secondary-color); 
+  background-color: var(--secondary-color);
 }
 
 .newsletter {
@@ -455,7 +456,7 @@ input:focus:invalid {
   text-align: center;
   border-radius: 8px;
   max-width: 600px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .newsletter h2 {
@@ -495,4 +496,113 @@ input:focus:invalid {
 
 #newsletter-form button:hover {
   background-color: #005fa3;
+}
+
+/* Discount */
+.product-card__price--original {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.9em;
+  margin: 0;
+}
+
+.product-card__discount {
+  color: #e74c3c;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Simple Comments Styles */
+.simple-comments {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: 2px solid var(--primary-color);
+}
+
+.simple-comments h3 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.add-comment {
+  margin-bottom: 1.5rem;
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.add-comment input,
+.add-comment textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 3px;
+}
+
+.add-comment button {
+  padding: 0.5rem 1rem;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.add-comment button:hover {
+  background-color: var(--tertiary-color);
+}
+
+.comment {
+  background: white;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 3px;
+}
+
+.comment strong {
+  color: var(--secondary-color);
+}
+
+.comment p {
+  margin: 0.5rem 0 0 0;
+  padding: 0;
+}
+
+/* Alert Message Styles */
+.alert {
+  background-color: #f4a460;
+  /* Sandy brown/orange color */
+  color: #333;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alert-message {
+  flex: 1;
+  font-weight: 500;
+}
+
+.alert-close {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  /* Red color for X button */
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  margin-left: 1rem;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.alert-close:hover {
+  background-color: rgba(211, 47, 47, 0.1);
 }
