@@ -2,7 +2,7 @@
 ## WDD 330 - Web Frontend Development II
 
 Team website URL:
-https://687516c30917e8b012bac370--jazzy-piroshki-e5d89c.netlify.app/
+[https://687516c30917e8b012bac370--jazzy-piroshki-e5d89c.netlify.app/](https://deploy-preview-28--sleepoutside330.netlify.app)
 
 ### ⛺ SleepOutside Starter Code
 
